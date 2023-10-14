@@ -1,18 +1,22 @@
-kind: RabbitmqCluster
 apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
 metadata:
-  name: rabbitmq
-  namespace: meu-primeiro-cluster-rabbitmq
+  name: production-rabbitmqcluster
 spec:
-  replicas: 2
-  image: rabbitmq:3.9.18-management
-  service:
-    type: ClusterIP
+  replicas: 3
   resources:
     requests:
-      cpu: 1
+      cpu: 500m
       memory: 1Gi
     limits:
       cpu: 1
-      memory: 1Gi
-EOF
+      memory: 2Gi
+  rabbitmq:
+          additionalConfig: |
+                  log.console.level = info
+                  channel_max = 1700
+                  default_user= guest 
+                  default_pass = guest
+                  default_user_tags.administrator = true
+  service:
+    type: LoadBalancer
