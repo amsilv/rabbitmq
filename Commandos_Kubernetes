@@ -1,0 +1,8 @@
+***tirar o tain to master node****
+$ kubectl taint nodes master-node node-role.kubernetes.io/control-plane:NoSchedule-
+
+***pegar o password do argocd *** 
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+
+***scale pods kubernetes *** 
+kubectl scale deploy tetris-deployment --replicas=2 -n default
