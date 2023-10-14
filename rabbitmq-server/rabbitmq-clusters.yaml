@@ -1,4 +1,3 @@
-kubectl apply -f - <<EOF
 kind: RabbitmqCluster
 apiVersion: rabbitmq.com/v1beta1
 metadata:
