@@ -1,0 +1,20 @@
+stages:
+  - build
+  - deploy
+
+criar_imagens:
+  stage: build
+  tags:
+    - aws
+  script:
+    - docker build -t amsilv/aws-runner:1.0 app/.
+    - docker push amsilv/aws-runner:1.0
+
+executar_imagens:
+  stages: deploy
+  needs:
+    - criar_imagens
+  tags:
+    - aws
+  script:
+    - docker run -dti --name webserver -p 80:80 amsilv/aws-runner:1.0
